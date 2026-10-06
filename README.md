@@ -1,75 +1,75 @@
-# React + TypeScript + Vite
+Sena — Personal Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, responsive personal portfolio website built with React, TypeScript, and Vite.
 
-Currently, two official plugins are available:
+👨‍💻 About
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Hi, I'm Sena Alemayehu, a Software Engineering student and aspiring full-stack developer.
 
-## React Compiler
+This portfolio showcases my projects, skills, services, and experience in software development and UI/UX design.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+🚀 Built With
 
-## Expanding the ESLint configuration
+- React
+- TypeScript
+- Vite
+- HTML5
+- CSS3
+- JavaScript
+- Git & GitHub
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+✨ Features
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- Responsive design
+- Modern dark UI
+- Hero section
+- About section
+- Skills section
+- Projects section
+- Project category filtering
+- Services section
+- Contact section
+- Mobile navigation
+- Smooth scrolling
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+📂 Project Structure
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+src/
+├── assets/
+├── components/
+├── sections/
+├── App.tsx
+├── main.tsx
+└── index.css
 
-```
+🛠️ Run Locally
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+Clone the repository:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+git clone YOUR_REPOSITORY_URL
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Go into the project:
 
-```
+cd your-project
+
+Install dependencies:
+
+npm install
+
+Start the development server:
+
+npm run dev
+
+Then open the local URL shown in your terminal.
+
+📌 Purpose
+
+This project is part of my journey as a Software Engineering student, where I am building practical projects while learning modern web development.
+
+📬 Contact
+
+Sena Alemayehu
+
+Software Engineering Student | Full-Stack Developer
+
+GitHub: "sena-alemayehu"
