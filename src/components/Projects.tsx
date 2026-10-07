@@ -26,9 +26,9 @@ const projects: Project[] = [
     demo: "http://localhost:5173/",
   },
   {
-    title: "E-commerce Website",
+    title: "Nexora Labs Website",
     description:
-      "A modern e-commerce website for browsing products, managing a shopping cart and creating a smooth online shopping experience.",
+      "A modern AI and software innovation company website built to showcase digital products and technology services.",
     category: "Web",
     technologies: ["React", "TypeScript", "CSS"],
     github: "https://github.com/",
