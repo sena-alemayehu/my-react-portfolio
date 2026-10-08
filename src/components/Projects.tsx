@@ -25,15 +25,17 @@ const projects: Project[] = [
     github: "https://github.com/",
     demo: "http://localhost:5173/",
   },
+
   {
     title: "Nexora Labs Website",
     description:
       "A modern AI and software innovation company website built to showcase digital products and technology services.",
     category: "Web",
     technologies: ["React", "TypeScript", "CSS"],
-    github: "https://github.com/",
-    demo: "http://localhost:5173/",
+    github: "https://github.com/sena-alemayehu/nexora-labs",
+    demo: "https://nexora-labs-mu.vercel.app",
   },
+
   {
     title: "Movie Watchlist App",
     description:
@@ -43,6 +45,7 @@ const projects: Project[] = [
     github: "https://github.com/",
     demo: "http://localhost:5173/",
   },
+
   {
     title: "Trading Journal App",
     description:
@@ -52,6 +55,7 @@ const projects: Project[] = [
     github: "https://github.com/",
     demo: "http://localhost:5173/",
   },
+
   {
     title: "Mini System",
     description:
@@ -61,15 +65,17 @@ const projects: Project[] = [
     github: "https://github.com/",
     demo: "http://localhost:5173/",
   },
-{
-  title: "TeleSystem",
-  description:
-    "A telecommunications management system for managing customers, services, accounts and telecom-related operations.",
-  category: "Systems",
-  technologies: ["Java", "PostgreSQL", "JDBC"],
-  github: "https://github.com/",
-  demo: "http://localhost:5173/",
-},
+
+  {
+    title: "TeleSystem",
+    description:
+      "A telecommunications management system for managing customers, services, accounts and telecom-related operations.",
+    category: "Systems",
+    technologies: ["Java", "PostgreSQL", "JDBC"],
+    github: "https://github.com/",
+    demo: "http://localhost:5173/",
+  },
+
   {
     title: "Web UI/UX Design",
     description:
@@ -79,6 +85,7 @@ const projects: Project[] = [
     github: "https://github.com/",
     demo: "http://localhost:5173/",
   },
+
   {
     title: "Mobile App UI/UX Design",
     description:
@@ -108,18 +115,35 @@ function Projects() {
 
   return (
     <section id="projects" className="projects section">
-      <div className="section-heading">
-        <p className="section-label">MY WORK</p>
 
-        <h2>Featured Projects</h2>
+      {/* ================================
+          SECTION HEADER
+      ================================= */}
+
+      <div className="section-heading">
+
+        <p className="section-label">
+          MY WORK
+        </p>
+
+        <h2>
+          Featured Projects
+        </h2>
 
         <p>
           Here are some of the projects I have built while learning and
           developing my skills.
         </p>
+
       </div>
 
+
+      {/* ================================
+          PROJECT FILTERS
+      ================================= */}
+
       <div className="project-filters">
+
         {categories.map((category) => (
           <button
             key={category}
@@ -129,29 +153,63 @@ function Projects() {
             {category}
           </button>
         ))}
+
       </div>
 
+
+      {/* ================================
+          PROJECTS GRID
+      ================================= */}
+
       <div className="projects-grid">
+
         {filteredProjects.map((project) => (
-          <article className="project-card" key={project.title}>
+          <article
+            className="project-card"
+            key={project.title}
+          >
+
+            {/* PROJECT IMAGE */}
+
             <div className="project-image">
               <span>{project.category}</span>
             </div>
 
+
+            {/* PROJECT CONTENT */}
+
             <div className="project-content">
-              <p className="project-category">{project.category}</p>
 
-              <h3>{project.title}</h3>
+              <p className="project-category">
+                {project.category}
+              </p>
 
-              <p>{project.description}</p>
+              <h3>
+                {project.title}
+              </h3>
+
+              <p>
+                {project.description}
+              </p>
+
+
+              {/* TECHNOLOGIES */}
 
               <div className="project-tech">
+
                 {project.technologies.map((technology) => (
-                  <span key={technology}>{technology}</span>
+                  <span key={technology}>
+                    {technology}
+                  </span>
                 ))}
+
               </div>
 
+
+              {/* PROJECT LINKS */}
+
               <div className="project-links">
+
                 <a
                   href={project.github}
                   target="_blank"
@@ -160,12 +218,23 @@ function Projects() {
                   GitHub ↗
                 </a>
 
-                <a href={project.demo}>Live Demo ↗</a>
+                <a
+                  href={project.demo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Live Demo ↗
+                </a>
+
               </div>
+
             </div>
+
           </article>
         ))}
+
       </div>
+
     </section>
   );
 }
