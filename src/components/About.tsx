@@ -2,7 +2,7 @@ import profileImage from "../assets/largeImg.jpeg";
 
 function About() {
   return (
-    <section id="about" className="about section">
+    <section id="about" className="about">
       {/* Section Heading */}
       <div className="section-heading">
         <p className="section-label">ABOUT ME</p>

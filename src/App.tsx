@@ -1,4 +1,4 @@
-import { useState } from "react";
+/*import { useState } from "react";
 
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
@@ -57,6 +57,62 @@ useReveal();
     </div>
   );
   
+}
+
+export default App;
+
+*/
+
+import "./App.css";
+import { useState } from "react";
+
+import Navbar from "./components/Navbar";
+import Hero from "./components/Hero";
+import About from "./components/About";
+import Skills from "./components/Skills";
+import Projects from "./components/Projects";
+import Services from "./components/Services";
+import Contact from "./components/Contact";
+
+import { useReveal } from "./hooks/useReveal";
+
+function App() {
+  const [darkMode, setDarkMode] = useState(true);
+
+  useReveal();
+
+  function toggleTheme() {
+    setDarkMode((previousMode) => !previousMode);
+  }
+
+  return (
+    <div className={darkMode ? "dark-mode" : "light-mode"}>
+      
+      <Navbar
+        darkMode={darkMode}
+        toggleTheme={toggleTheme}
+      />
+
+      <main>
+        <Hero />
+
+        <About />
+
+        <Skills />
+
+        <Projects />
+
+        <Services />
+
+        <Contact />
+      </main>
+
+      <footer>
+        <p>© 2026 Sena Alemayehu. All rights reserved.</p>
+      </footer>
+
+    </div>
+  );
 }
 
 export default App;
