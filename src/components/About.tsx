@@ -42,12 +42,13 @@ function About() {
           <div className="about-info">
             <div>
               <strong>Education</strong>
-              <span>Software Engineering</span>
+              <span>4th Year Software Engineering Student</span>
             </div>
 
             <div>
               <strong>Focus</strong>
-              <span>Web Development</span>
+              <span>Fullstack Website Development</span>
+              <span>Mobile App Development</span>
             </div>
 
             <div>
