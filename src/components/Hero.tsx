@@ -25,7 +25,7 @@ function Hero() {
           </a>
 
           <a
-            href="/Sena_Alamayehu_CV.png"
+            href="/CV.pdf"
             className="btn secondary-btn"
             download
           >
