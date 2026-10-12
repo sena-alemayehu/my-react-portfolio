@@ -1,24 +1,71 @@
+
 import { useState, type FormEvent } from "react";
 
 function Contact() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
-  const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [status, setStatus] = useState("");
+  const [isError, setIsError] = useState(false);
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    if (!name.trim() || !email.trim() || !message.trim()) {
-      alert("Please fill in all fields.");
+    const cleanName = name.trim();
+    const cleanEmail = email.trim();
+    const cleanMessage = message.trim();
+
+    if (!cleanName || !cleanEmail || !cleanMessage) {
+      setIsError(true);
+      setStatus("Please fill in all fields.");
       return;
     }
 
-    setSubmitted(true);
+    setSubmitting(true);
+    setStatus("");
+    setIsError(false);
 
-    setName("");
-    setEmail("");
-    setMessage("");
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: cleanName,
+          email: cleanEmail,
+          message: cleanMessage,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || result.message || "Unable to send your message.");
+      }
+
+      setStatus(result.message || "Message sent successfully! 🚀");
+      setIsError(false);
+
+      setName("");
+      setEmail("");
+      setMessage("");
+    } catch (error) {
+      setIsError(true);
+
+      if (error instanceof Error) {
+        setStatus(
+          error.message === "Failed to fetch"
+            ? "Could not connect to the server. Please try again."
+            : error.message
+        );
+      } else {
+        setStatus("Something went wrong. Please try again.");
+      }
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   return (
@@ -62,13 +109,13 @@ function Contact() {
           </div>
 
           <div className="social-links">
-<a
-  href="https://github.com/sena-alemayehu"
-  target="_blank"
-  rel="noopener noreferrer"
->
-  GitHub
-</a>
+            <a
+              href="https://github.com/sena-alemayehu"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              GitHub
+            </a>
 
             <a
               href="https://www.linkedin.com/in/sena1221"
@@ -83,47 +130,72 @@ function Contact() {
         <form className="contact-form" onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="name">Name</label>
-
             <input
               id="name"
+              name="name"
               type="text"
               placeholder="Your name"
               value={name}
-              onChange={(event) => setName(event.target.value)}
+              onChange={(event) => {
+                setName(event.target.value);
+                setStatus("");
+              }}
+              maxLength={100}
+              autoComplete="name"
+              required
             />
           </div>
 
           <div className="form-group">
             <label htmlFor="email">Email</label>
-
             <input
               id="email"
+              name="email"
               type="email"
-              placeholder="Your Email"
+              placeholder="Your email"
               value={email}
-              onChange={(event) => setEmail(event.target.value)}
+              onChange={(event) => {
+                setEmail(event.target.value);
+                setStatus("");
+              }}
+              maxLength={254}
+              autoComplete="email"
+              required
             />
           </div>
 
           <div className="form-group">
             <label htmlFor="message">Message</label>
-
             <textarea
               id="message"
+              name="message"
               rows={6}
               placeholder="Write your message..."
               value={message}
-              onChange={(event) => setMessage(event.target.value)}
+              onChange={(event) => {
+                setMessage(event.target.value);
+                setStatus("");
+              }}
+              maxLength={5000}
+              required
             />
           </div>
 
-          <button type="submit" className="btn primary-btn">
-            Send Message
+          <button
+            type="submit"
+            className="btn primary-btn"
+            disabled={submitting}
+          >
+            {submitting ? "Sending..." : "Send Message"}
           </button>
 
-          {submitted && (
-            <p className="success-message">
-              Message submitted successfully! 🚀
+          {status && (
+            <p
+              className={isError ? "error-message" : "success-message"}
+              role="status"
+              aria-live="polite"
+            >
+              {status}
             </p>
           )}
         </form>
