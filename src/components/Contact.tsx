@@ -1,5 +1,17 @@
-
 import { useState, type FormEvent } from "react";
+
+const API_URL =
+  "https://portfolio-backend-hazel-eight.vercel.app/api/contact";
+
+type ContactResponse = {
+  success?: boolean;
+  message?: string;
+  error?: string;
+  data?: {
+    id?: string | number;
+    createdAt?: string;
+  };
+};
 
 function Contact() {
   const [name, setName] = useState("");
@@ -9,7 +21,9 @@ function Contact() {
   const [status, setStatus] = useState("");
   const [isError, setIsError] = useState(false);
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(
+    event: FormEvent<HTMLFormElement>
+  ) {
     event.preventDefault();
 
     const cleanName = name.trim();
@@ -27,10 +41,11 @@ function Contact() {
     setIsError(false);
 
     try {
-      const response = await fetch("/api/contact", {
+      const response = await fetch(API_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Accept: "application/json",
         },
         body: JSON.stringify({
           name: cleanName,
@@ -39,27 +54,46 @@ function Contact() {
         }),
       });
 
-      const result = await response.json();
+      // Read the response as text first so invalid JSON
+      // does not produce a confusing parsing error.
+      const responseText = await response.text();
 
-      if (!response.ok) {
-        throw new Error(result.error || result.message || "Unable to send your message.");
+      let result: ContactResponse;
+
+      try {
+        result = JSON.parse(responseText) as ContactResponse;
+      } catch {
+        throw new Error(
+          `The server returned an invalid response (HTTP ${response.status}). Please try again later.`
+        );
       }
 
-      setStatus(result.message || "Message sent successfully! 🚀");
-      setIsError(false);
+      if (!response.ok || result.success === false) {
+        throw new Error(
+          result.error ||
+            result.message ||
+            `Unable to send your message (HTTP ${response.status}).`
+        );
+      }
 
+      setIsError(false);
+      setStatus(
+        result.message || "Message sent successfully! 🚀"
+      );
+
+      // Clear the form only after a successful response.
       setName("");
       setEmail("");
       setMessage("");
     } catch (error) {
       setIsError(true);
 
-      if (error instanceof Error) {
+      if (error instanceof TypeError) {
         setStatus(
-          error.message === "Failed to fetch"
-            ? "Could not connect to the server. Please try again."
-            : error.message
+          "Could not connect to the server. Check your internet connection or try again later."
         );
+      } else if (error instanceof Error) {
+        setStatus(error.message);
       } else {
         setStatus("Something went wrong. Please try again.");
       }
@@ -92,6 +126,7 @@ function Contact() {
 
           <div className="contact-item">
             <span>📧</span>
+
             <div>
               <strong>Email</strong>
               <a href="mailto:nafyadabe49@gmail.com">
@@ -102,6 +137,7 @@ function Contact() {
 
           <div className="contact-item">
             <span>📍</span>
+
             <div>
               <strong>Location</strong>
               <p>Ethiopia</p>
@@ -127,9 +163,13 @@ function Contact() {
           </div>
         </div>
 
-        <form className="contact-form" onSubmit={handleSubmit}>
+        <form
+          className="contact-form"
+          onSubmit={handleSubmit}
+        >
           <div className="form-group">
             <label htmlFor="name">Name</label>
+
             <input
               id="name"
               name="name"
@@ -148,6 +188,7 @@ function Contact() {
 
           <div className="form-group">
             <label htmlFor="email">Email</label>
+
             <input
               id="email"
               name="email"
@@ -166,6 +207,7 @@ function Contact() {
 
           <div className="form-group">
             <label htmlFor="message">Message</label>
+
             <textarea
               id="message"
               name="message"
@@ -191,7 +233,9 @@ function Contact() {
 
           {status && (
             <p
-              className={isError ? "error-message" : "success-message"}
+              className={
+                isError ? "error-message" : "success-message"
+              }
               role="status"
               aria-live="polite"
             >
